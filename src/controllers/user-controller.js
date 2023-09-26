@@ -18,7 +18,7 @@ export const createUser = async (req, res) => {
     res.status(200).json({ user: user });
   } catch (err) {
     if (err.code === "P2002") {
-      res.json({ error: "las credenciales del usuario se repiten" });
+      res.json({ error: "las credenciales del usuario ya existe" });
     } else {
       res.json(err);
     }
@@ -36,7 +36,7 @@ export const loginWhitUser = async (req, res) => {
   });
 
   if (Object.keys(user).length === 0) {
-    res.status(404).json({ error: "el usuario no exixte" });
+    res.status(404).json({ error: "el usuario no existe" });
   }
 
   const token = generateToken(user);
@@ -57,7 +57,7 @@ export const getUser = async (req, res) => {
   });
 
   if (!Array.isArray(user) || user.length === 0) {
-    res.status(404).json({ error: "el usuario no exixte" });
+    res.status(404).json({ error: "el usuario no existe" });
   }
   res.status(200).json(user);
 };
